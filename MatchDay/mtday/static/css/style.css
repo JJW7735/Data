@@ -10,7 +10,7 @@
 }
 
 /* body 설정 - 모든 페이지에서 사용됨 (home.html, menu.html, sign_up.html) */
-body {
+.body {
     background: linear-gradient(45deg, #d5d2d2, #d5d2d2);
     background-repeat: no-repeat;
     min-height: 100vh;
@@ -29,6 +29,17 @@ main.container {
     padding: 2rem;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
+}
+main.home-container {
+    background: white;
+    min-width: 380px;
+    min-height: 30vh;
+    padding: 2rem;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    max-width: 1600px; 
+    max-height: px ; 
+    text-align: center;
 }
 
 /* main 로그인 컨테이너 설정 - home.html에서 사용됨 */

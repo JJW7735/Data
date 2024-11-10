@@ -7,13 +7,103 @@
     <script src="https://kit.fontawesome.com/1ab94d0eba.js" crossorigin="anonymous"></script>
     <title>main title</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
-</head>
-<body>
-    {% include 'menu.html' %}
-    
+    <style>
+        .main-visual {
+            position: relative;
+            width: 100%;
+            height: 50vh;
+            display: flex;
+            overflow: hidden;
+            padding-top: 0px;
+            margin-top: 0;
+        }
+        .slider {
+            display: flex;
+            transition: transform 1s ease-in-out;
+            width: 500%;
+        }
+        .slide {
+            min-width: 100%;
+            height: 50vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4em;
+            color: white;
+            background-color: #333;
+        }
+        .controls {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+        .control-btn {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-size: 1.5em;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            let currentIndex = 0;
+            const slides = document.querySelectorAll('.slide');
+            const slider = document.querySelector('.slider');
+            const totalSlides = slides.length;
 
-        
-    </main>
+            function updateSlider(index) {
+                slider.style.transform = `translateX(-${index * 100}%)`;
+            }
+
+            // 자동 슬라이더
+            let slideInterval = setInterval(() => {
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateSlider(currentIndex);
+            }, 5000);
+
+            // 이전 및 다음 버튼 기능
+            document.querySelector('.prev').addEventListener('click', () => {
+                clearInterval(slideInterval); // 자동 슬라이드 일시 중지
+                currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+                updateSlider(currentIndex);
+                slideInterval = setInterval(() => { // 자동 슬라이드 재시작
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    updateSlider(currentIndex);
+                }, 5000);
+            });
+
+            document.querySelector('.next').addEventListener('click', () => {
+                clearInterval(slideInterval); // 자동 슬라이드 일시 중지
+                currentIndex = (currentIndex + 1) % totalSlides;
+                updateSlider(currentIndex);
+                slideInterval = setInterval(() => { // 자동 슬라이드 재시작
+                    currentIndex = (currentIndex + 1) % totalSlides;
+                    updateSlider(currentIndex);
+                }, 5000);
+            });
+        });
+    </script>
+</head>
+<body class="body">
+    {% include 'menu.html' %}
+    <!-- Main Visual Section -->
+    <section class="main-visual" style="position: absolute; top: 75px; left: 0; width: 100%; margin: 0; padding: 0;">
+        <div class="slider">
+            <div class="slide">1</div>
+            <div class="slide">2</div>
+            <div class="slide">3</div>
+            <div class="slide">4</div>
+            <div class="slide">5</div>
+        </div>
+        <div class="controls">
+            <button class="control-btn prev">&#10094;</button>
+            <button class="control-btn next">&#10095;</button>
+        </div>
+    </section>
 </body>
 </html>
